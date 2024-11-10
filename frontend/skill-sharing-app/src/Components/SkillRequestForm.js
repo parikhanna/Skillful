@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
 import "./SkillRequestForm.css";
 
-import webDevelopmentImage from "../assets/home-page-image-1.png";
-
 function SkillRequestForm() {
-    // Mapping of categories to their respective skills/titles
-    const categoryToTitles = {
-        'Technology': ['Software Development', 'UI/UX Design', 'Data Science', 'Cybersecurity', 'DevOps'],
-        'Business': ['Marketing Strategy', 'Business Consulting', 'Financial Planning', 'Project Management'],
-        'Legal': ['Legal Consulting', 'Contract Law', 'Intellectual Property'],
-        'Creative': ['Graphic Design', 'Video Editing', 'Content Writing', 'Photography'],
-        'Health & Wellness': ['Personal Training', 'Nutritionist', 'Haircut', 'Mental Health Counseling'],
-        'Education': ['Tutoring', 'Curriculum Development', 'Education Consulting']
-    };
+    // Common list of skills for both "Skill to Request" and "Skill to Offer"
+    const skills = [
+        'Software Development', 'UI/UX Design', 'Data Science', 'Cybersecurity', 'DevOps',
+        'Marketing Strategy', 'Business Consulting', 'Financial Planning', 'Project Management',
+        'Legal Consulting', 'Contract Law', 'Intellectual Property',
+        'Graphic Design', 'Video Editing', 'Content Writing', 'Photography',
+        'Personal Training', 'Nutritionist', 'Haircut', 'Mental Health Counseling',
+        'Tutoring', 'Curriculum Development', 'Education Consulting'
+    ];
 
     const locations = ['Online', 'Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Edmonton', 'Winnipeg', 'Quebec City'];
 
     const [formData, setFormData] = useState({
-        category: '',
-        title: '',
+        skillToRequest: '',
+        skillToOffer: '',
         description: '',
         dueDate: '',
         location: '',
@@ -30,9 +28,7 @@ function SkillRequestForm() {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value,
-            // Reset the title if the category changes
-            ...(name === 'category' && { title: '' })
+            [name]: value
         });
     };
 
@@ -41,28 +37,27 @@ function SkillRequestForm() {
             <h1 className="page-title">Request a <span className="orange-text">Skill<span className="dot">.</span></span></h1>
             <form className="skill-request-form">
                 <div className="form-container">
-                    {/* Category */}
+                    {/* Skill to Request */}
                     <label>
-                        Skill Category
-                        <select name="category" value={formData.category} onChange={handleChange} required>
-                            <option value="">Select a category</option>
-                            {Object.keys(categoryToTitles).map((category) => (
-                                <option key={category} value={category}>
-                                    {category}
+                        Skill to Request
+                        <select name="skillToRequest" value={formData.skillToRequest} onChange={handleChange} required>
+                            <option value="">Select a skill</option>
+                            {skills.map((skill) => (
+                                <option key={skill} value={skill}>
+                                    {skill}
                                 </option>
                             ))}
                         </select>
                     </label>
 
-                    {/* Title */}
+                    {/* Skill to Offer */}
                     <label>
-                        Skill Title
-                        <select name="title" value={formData.title} onChange={handleChange} required disabled={!formData.category}>
+                        Skill to Offer
+                        <select name="skillToOffer" value={formData.skillToOffer} onChange={handleChange} required>
                             <option value="">Select a skill</option>
-                            {/* Only show titles based on the selected category */}
-                            {formData.category && categoryToTitles[formData.category].map((title) => (
-                                <option key={title} value={title}>
-                                    {title}
+                            {skills.map((skill) => (
+                                <option key={skill} value={skill}>
+                                    {skill}
                                 </option>
                             ))}
                         </select>
