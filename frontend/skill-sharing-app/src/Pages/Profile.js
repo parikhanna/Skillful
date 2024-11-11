@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import './Profile.css'; // Import CSS for styling
+import './Profile.css';
+import profilePhoto from '../assets/profile-picture.png'; // Import the image
 
 function Profile() {
     const [userInfo, setUserInfo] = useState(null);
@@ -9,7 +10,7 @@ function Profile() {
     useEffect(() => {
         async function fetchUserInfo() {
             try {
-                const response = await fetch('http://localhost:3100/users/user-info'); // Adjust this endpoint if necessary
+                const response = await fetch('http://localhost:3100/users/user-info');
                 if (response.ok) {
                     const data = await response.json();
                     setUserInfo(data);
@@ -39,8 +40,9 @@ function Profile() {
 
     return (
         <div className="profile-page">
+            <h1 className="profile-title">Personal Info<span className="dot">.</span></h1>
             <div className="profile-card">
-                <h1>Profile</h1>
+                <img src={profilePhoto} alt="Profile" className="profile-photo" /> {/* Use imported image */}
                 <div className="profile-info">
                     <p><strong>Name:</strong> {userInfo.name}</p>
                     <p><strong>Location:</strong> {userInfo.location}</p>
