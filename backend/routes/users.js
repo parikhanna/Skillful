@@ -9,7 +9,6 @@ const { client } = require('../db');
 dotenv.config();
 
 const upload = multer({ dest: path.join(__dirname, '../uploads') });
-
 const openai = new OpenAI();
 
 router.post('/upload', upload.single('file'), async (req, res) => {
@@ -86,10 +85,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
         });
 
         let summary = completion.choices[0].message.content;
-        // console.log(summary);
-        // Assuming summary is a JSON string
-
-        // Parse the JSON string into a JavaScript object
         summary = JSON.parse(summary);
 
         const db = client.db('skillSharing');
@@ -115,6 +110,39 @@ router.post('/upload', upload.single('file'), async (req, res) => {
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('An error occurred while processing the file');
+    }
+});
+
+// New route to get user information based on email
+router.get('/user-info', async (req, res) => {
+    const email = 'singhsiraaj6@gmail.com'; // Hardcoded email for now
+
+    try {
+        const db = client.db('skillSharing');
+        const collection = db.collection('users');
+
+        // Find the user with the specified email and select only name, location, email, and category fields
+        const user = await collection.findOne(
+            { email },
+            { projection: { 'summary.name': 1, 'summary.location': 1, email: 1, 'summary.category': 1 } }
+        );
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        // Format the response data
+        const userInfo = {
+            name: user.summary.name,
+            location: user.summary.location,
+            email: user.email,
+            category: user.summary.category,
+        };
+
+        res.json(userInfo);
+    } catch (error) {
+        console.error('Error fetching user info:', error);
+        res.status(500).send('An error occurred while fetching the user info');
     }
 });
 

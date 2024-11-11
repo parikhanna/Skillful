@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import "./SkillRequestForm.css";
 
 function SkillRequestForm() {
-    // Common list of skills for both "Skill to Request" and "Skill to Offer"
-    const skills = [
-        'Software Development', 'UI/UX Design', 'Data Science', 'Cybersecurity', 'DevOps',
-        'Marketing Strategy', 'Business Consulting', 'Financial Planning', 'Project Management',
-        'Legal Consulting', 'Contract Law', 'Intellectual Property',
-        'Graphic Design', 'Video Editing', 'Content Writing', 'Photography',
-        'Personal Training', 'Nutritionist', 'Haircut', 'Mental Health Counseling',
-        'Tutoring', 'Curriculum Development', 'Education Consulting'
+    // Updated skill categories
+    const skillCategories = [
+        'Technology', 'Business', 'Legal', 'Health & Wellness', 'Creative', 'Education'
     ];
 
     const locations = ['Online', 'Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Edmonton', 'Winnipeg', 'Quebec City'];
@@ -22,8 +17,8 @@ function SkillRequestForm() {
         location: '',
         comments: ''
     });
+    const [notification, setNotification] = useState({ message: '', type: '' });
 
-    // Handler for form inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -32,19 +27,62 @@ function SkillRequestForm() {
         });
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:3100/jobs/post-job', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    description: formData.description,
+                    requestedSkill: formData.skillToRequest,
+                    mySkill: formData.skillToOffer,
+                    location: formData.location,
+                    dueDate: formData.dueDate,
+                    comments: formData.comments
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.status) {
+                setNotification({ message: "Request submitted successfully!", type: "success" });
+            } else {
+                setNotification({ message: "Failed to submit request.", type: "error" });
+            }
+        } catch (error) {
+            console.error("Error posting job:", error);
+            setNotification({ message: "There was an error submitting the request.", type: "error" });
+        }
+
+        // Hide the notification after 3 seconds
+        setTimeout(() => setNotification({ message: '', type: '' }), 3000);
+    };
+
     return (
         <div className="form-page">
             <h1 className="page-title">Request a <span className="orange-text">Skill<span className="dot">.</span></span></h1>
-            <form className="skill-request-form">
+
+            {notification.message && (
+                <div className={`notification ${notification.type}`}>
+                    <span>{notification.message}</span>
+                    <button onClick={() => setNotification({ message: '', type: '' })}>×</button>
+                </div>
+            )}
+
+            <form className="skill-request-form" onSubmit={handleSubmit}>
                 <div className="form-container">
                     {/* Skill to Request */}
                     <label>
                         Skill to Request
                         <select name="skillToRequest" value={formData.skillToRequest} onChange={handleChange} required>
-                            <option value="">Select a skill</option>
-                            {skills.map((skill) => (
-                                <option key={skill} value={skill}>
-                                    {skill}
+                            <option value="">Select a skill category</option>
+                            {skillCategories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category}
                                 </option>
                             ))}
                         </select>
@@ -54,10 +92,10 @@ function SkillRequestForm() {
                     <label>
                         Skill to Offer
                         <select name="skillToOffer" value={formData.skillToOffer} onChange={handleChange} required>
-                            <option value="">Select a skill</option>
-                            {skills.map((skill) => (
-                                <option key={skill} value={skill}>
-                                    {skill}
+                            <option value="">Select a skill category</option>
+                            {skillCategories.map((category) => (
+                                <option key={category} value={category}>
+                                    {category}
                                 </option>
                             ))}
                         </select>

@@ -1,134 +1,121 @@
-/* Import font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
 /* Page Background */
 body {
-  background: linear-gradient(135deg, #F5F2EB, #ECE8E1); /* Soft beige gradient */
+  background: linear-gradient(135deg, #F5F2EB, #ECE8E1);
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  color: #333; /* Default text color */
+  color: #333;
 }
 
-/* Large Title Text */
 .page-title {
   font-size: 10vh;
   color: #333;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15), /* Light shadow for pop effect */
-               4px 4px 8px rgba(0, 0, 0, 0.1);   /* Slightly larger, softer shadow */
-    margin-bottom: 30px;
-    margin-top: 50px;
+  margin-bottom: 30px;
+  margin-top: 50px;
 }
 
-/* Orange Text */
 .orange-text {
-  color: #black;
+  color: black;
 }
 
-/* Dot */
 .dot {
   color: #FF7F50;
 }
 
-/* Form Container */
 .form-container {
   display: flex;
-  flex-wrap: wrap; /* Enables wrapping to the next line */
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem; /* Adjust spacing as needed */
+  gap: 2rem;
   padding: 1rem;
-  max-width: 100%; /* Ensures container does not overflow */
-  box-sizing: border-box; /* Includes padding in width calculations */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* Label Styling */
 label {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers label text and input box */
+  align-items: center;
   font-size: 2.5vh;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15), /* Light shadow for pop effect */
-               4px 4px 8px rgba(0, 0, 0, 0.1);   /* Slightly larger, softer shadow */
-  width: 35%; /* Set width to 48% to show two labels per row */
-  min-width: 200px; /* Minimum width to prevent labels from getting too narrow */
+  width: 35%;
+  min-width: 200px;
   box-sizing: border-box;
-
 }
 
-/* Input and select styling */
 input, select, textarea {
   font-size: 1.5vh;
   padding: 0.75rem;
   margin-top: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: 70%; /* Make input fields half the width of the label container */
+  width: 70%;
   box-sizing: border-box;
-  text-align: left; /* Center-align text inside the input */
   background-color: #fff;
   color: #333;
   transition: all 0.3s ease;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05); /* Soft shadow for pop effect */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Input and select hover effect */
-input:hover, select:hover, textarea:hover {
-  border-color: #FF7F50; /* Accent color for hover */
-  background-color: #fdf8f4; /* Slightly off-white background */
-}
-
-/* Input and select focus effect */
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: #FF7F50; /* Accent color for focus */
-  box-shadow: 0px 6px 12px rgba(255, 127, 80, 0.2); /* Stronger shadow for focus */
-  background-color: #fff;
-}
-
-/* Placeholder color */
-input::placeholder, textarea::placeholder {
-  color: #999;
-  font-style: italic;
-}
-
-/* Submit Button Styling */
 button[type="submit"] {
-  background-color: #FF7F50; /* Accent color for the button */
+  background-color: #FF7F50;
   color: #fff;
   font-size: 1rem;
   font-weight: bold;
   padding: 0.75rem 2rem;
   border: none;
-  border-radius: 15px; /* Rounded button */
+  border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Button shadow */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   width: auto;
   margin-top: 20px;
 }
 
-  
-  /* Submit button hover */
-  button[type="submit"]:hover {
-    background: linear-gradient(135deg, #FF7F50, #FF914D); /* Reverse gradient on hover */
-    box-shadow: 0px 6px 12px rgba(255, 127, 80, 0.5); /* Enhanced shadow on hover */
-    transform: translateY(-2px); /* Slight lift effect */
-  }
-  
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  label {
-    width: 100%; /* On smaller screens, labels take full width */
-  }
-  input, select, textarea {
-    width: 100%; /* Input fields take full width on small screens */
-  }
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #FF7F50, #FF914D);
+  box-shadow: 0px 6px 12px rgba(255, 127, 80, 0.5);
+  transform: translateY(-2px);
 }
 
-.form-page {
+/* Notification Styling */
+.notification {
     display: flex;
-    flex-direction: column;
-    gap:0;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
+.notification.success {
+    background-color: #28a745;
+}
+
+.notification.error {
+    background-color: #dc3545;
+}
+
+.notification button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.notification button:hover {
+    color: #ddd;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

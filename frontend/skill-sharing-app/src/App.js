@@ -4,6 +4,8 @@ import './App.css';
 import Header from "./Components/Header.js";
 import Home from "./Pages/Home.js";
 import SkillRequestForm from "./Components/SkillRequestForm.js";
+import AddResume from './Pages/AddResume.js';
+import Profile from './Pages/Profile.js';
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/request-skill" element={<SkillRequestForm />} />
+          <Route path="/uploadResume" element={<AddResume />}/>
         </Routes>
       </div>
     </Router>
