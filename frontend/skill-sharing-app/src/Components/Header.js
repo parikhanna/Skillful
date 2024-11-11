@@ -11,9 +11,12 @@ function Header() {
     window.location.href = 'http://localhost:3100/login';
   };
 
-  // Navigate to request-skill page
   const handleRequestSkillClick = () => {
     navigate('/request-skill');
+  };
+
+  const handleProfileClick = () => {
+    navigate('/profile');
   };
 
   return (
@@ -25,7 +28,7 @@ function Header() {
         <ul className="header-nav">
           <li onClick={handleRequestSkillClick}>Request A Skill</li>
           <li>My Dashboard</li>
-          <li>My Profile</li>
+          <li onClick={handleProfileClick}>My Profile</li> {/* Navigate to Profile page */}
         </ul>
       </nav>
       <div className="header-buttons">
