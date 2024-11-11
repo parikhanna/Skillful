@@ -19,6 +19,10 @@ function Header() {
     navigate('/profile');
   };
 
+  const handleDashboardClick = () => {
+    navigate('/dashboard');
+  };
+
   return (
     <header className="header">
       <h1 className="header-logo">
@@ -27,8 +31,8 @@ function Header() {
       <nav>
         <ul className="header-nav">
           <li onClick={handleRequestSkillClick}>Request A Skill</li>
-          <li>My Dashboard</li>
-          <li onClick={handleProfileClick}>My Profile</li> {/* Navigate to Profile page */}
+          <li onClick={handleDashboardClick}>My Dashboard</li>
+          <li onClick={handleProfileClick}>My Profile</li>
         </ul>
       </nav>
       <div className="header-buttons">

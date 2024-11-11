@@ -6,6 +6,7 @@ import Home from "./Pages/Home.js";
 import SkillRequestForm from "./Components/SkillRequestForm.js";
 import AddResume from './Pages/AddResume.js';
 import Profile from './Pages/Profile.js';
+import MyDashboard from './Pages/MyDashboard.js'; // Import the MyDashboard component
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/request-skill" element={<SkillRequestForm />} />
           <Route path="/uploadResume" element={<AddResume />} />
-          <Route path="/profile" element={<Profile />} /> {/* Added Profile route */}
+          <Route path="/profile" element={<Profile />} /> {/* Profile route */}
+          <Route path="/dashboard" element={<MyDashboard />} /> {/* MyDashboard route */}
         </Routes>
       </div>
     </Router>

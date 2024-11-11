@@ -29,6 +29,7 @@
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
 }
 
 /* Profile Photo */
@@ -56,4 +57,41 @@
 .profile-info strong {
     font-weight: bold;
     color: #333;
+}
+
+/* Jobs Title */
+.jobs-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.jobs-title .dot {
+    color: #FF7F50;
+}
+
+/* Jobs List */
+.jobs-list {
+    width: 50%;
+}
+
+/* Job Summary Box */
+.job-summary {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: left; /* Ensures text is aligned to the left */
+}
+
+.job-summary p {
+    margin: 0.5rem 0;
+    color: #4F4A44;
+}
+
+.job-summary strong {
+    color: #333;
+    font-weight: bold;
 }
