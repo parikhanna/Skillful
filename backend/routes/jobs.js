@@ -37,11 +37,14 @@ router.post('/post-job', async (req, res) => {
 });
 
 router.get('/get-all-jobs', async (req, res) => {
-    const jobs = await collection.find().toArray();
+    let jobs = await collection.find().toArray();
     if (jobs.length === 0) {
         return res.send('No jobs found');
     }
-    return res.send(jobs);
+
+    // remove jobs with requested skill not equal to 'Technology'
+    jobs = jobs.filter((job) => job.requestedSkill === 'Technology');
+    return res.json(jobs);
 });
 
 module.exports = router;
