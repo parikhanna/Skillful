@@ -124,7 +124,14 @@ router.get('/user-info', async (req, res) => {
         // Find the user with the specified email and select only name, location, email, and category fields
         const user = await collection.findOne(
             { email },
-            { projection: { 'summary.name': 1, 'summary.location': 1, email: 1, 'summary.category': 1 } }
+            {
+                projection: {
+                    'summary.name': 1,
+                    'summary.location': 1,
+                    email: 1,
+                    'summary.category': 1,
+                },
+            }
         );
 
         if (!user) {
@@ -143,6 +150,31 @@ router.get('/user-info', async (req, res) => {
     } catch (error) {
         console.error('Error fetching user info:', error);
         res.status(500).send('An error occurred while fetching the user info');
+    }
+});
+
+router.get('/get-my-jobs', async (req, res) => {
+    const email = 'singhsiraaj6@gmail.com';
+
+    if (!email) {
+        return res.status(400).send('Email is required');
+    }
+
+    try {
+        const db = client.db('skillSharing');
+        const collection = db.collection('jobs');
+
+        // Find all jobs posted by the user with the specified email
+        const jobs = await collection.find({ email }).toArray();
+
+        if (jobs.length === 0) {
+            return res.send('No jobs found');
+        }
+
+        res.json(jobs);
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        res.status(500).send('An error occurred while fetching the jobs');
     }
 });
 

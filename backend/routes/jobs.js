@@ -5,6 +5,7 @@ const db = client.db('skillSharing');
 const collection = db.collection('jobs');
 
 router.post('/post-job', async (req, res) => {
+    const email = 'singhsiraaj6@gmail.com';
     const {
         description,
         requestedSkill,
@@ -21,6 +22,7 @@ router.post('/post-job', async (req, res) => {
         location,
         dueDate,
         comments,
+        email,
     };
 
     const result = await collection.insertOne(job);
